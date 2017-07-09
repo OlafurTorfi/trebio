@@ -1,9 +1,11 @@
 {
     "name": "Trebio",
     "short_name": "Trebio",
+    "scope": "./",
     "start_url": "./?homescreen=1",
     "display": "standalone",
-    "theme_color": "#3f51b5",
+    "orientation": "any",
+    "theme_color": "#9C27B0",
     "background_color": "#3f51b5",
     "icons": [{
             "src": "images/manifest/icon-192x192.png",

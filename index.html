@@ -48,11 +48,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
     <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
     <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+    <link rel="import" href="bower_components/polymerfire/firebase-app.html">
+    <!--<link rel="import" href="bower_components/polymerfire/polymerfire.html">-->
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3f51b5">
     <meta name="msapplication-tap-highlight" content="no">
+
+
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>-->
+    <!-- <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-storage.js"></script> -->
 
     <script>
         // Register the base URL
@@ -60,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         // Load and register pre-caching Service Worker
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 navigator.serviceWorker.register(baseUrl + 'service-worker.js');
             });
         }
@@ -85,11 +95,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
+
+    <firebase-app name="trebio" api-key="AIzaSyDgEzl88BP-ROG2j_nT4ZT6mnJ0SM7b_14" auth-domain="trebio-ec0ad.firebaseapp.com"
+        database-url="https://trebio-ec0ad.firebaseio.com">
+    </firebase-app>
     <my-app></my-app>
     <noscript>
-      Please enable JavaScript to view this website.
+        Please enable JavaScript to view this website.
     </noscript>
     <!-- Built with love using Polymer Starter Kit -->
+    <!--<script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDgEzl88BP-ROG2j_nT4ZT6mnJ0SM7b_14",
+            authDomain: "trebio-ec0ad.firebaseapp.com",
+            databaseURL: "https://trebio-ec0ad.firebaseio.com",
+            projectId: "trebio-ec0ad",
+            storageBucket: "trebio-ec0ad.appspot.com",
+            messagingSenderId: "1042906926908"
+        };
+        firebase.initializeApp(config);
+    </script>-->
 </body>
 
 </html>

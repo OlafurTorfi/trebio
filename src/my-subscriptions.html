@@ -6,25 +6,23 @@
 <dom-module id="my-subscriptions">
     <!-- Defines the element's style and local DOM -->
     <template>
-    <style>
-      :host {
-        display: block;
+        <style>
+             :host {
+                display: block;
 
-        padding: 16px;
-      }
-    </style>
-
-    <h1>New view</h1>
-    <paper-checkbox>Ready to deploy!</paper-checkbox>
-  </template>
-    <script>
-        // Your new element extends the Polymer.Element base class
-        class MySubscriptions extends Polymer.Element {
-                static get is() {
-                    return 'my-subscriptions';
-                }
+                padding: 16px;
             }
-            //Now, register your new custom element so the browser can use it
+        </style>
+
+        <h1>New view</h1>
+        <paper-checkbox>Ready to deploy!</paper-checkbox>
+    </template>
+    <script>
+        class MySubscriptions extends Polymer.Element {
+            static get is() {
+                return 'my-subscriptions';
+            }
+        }
         customElements.define(MySubscriptions.is, MySubscriptions);
     </script>
 </dom-module>
