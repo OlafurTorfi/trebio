@@ -94,7 +94,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <app-toolbar>
                         <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
                         <div main-title>Trebio</div>
-                        <paper-button on-tap="signIn">Log In</paper-button>
+
+                        <paper-button on-tap="signIn" hidden=[[signedIn]]>Log In</paper-button>
+                        <paper-button on-tap="signOut" hidden=[[!signedIn]]>Log Out</paper-button>
                     </app-toolbar>
                 </app-header>
 
@@ -125,7 +127,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     },
                     rootPattern: String,
                     routeData: Object,
-                    subroute: String
+                    subroute: String,
+                    signedIn: {
+                        type: Boolean,
+                        reflectToAttribute: true,
+                        value: false
+                    }
                 };
             }
 
@@ -144,6 +151,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
             signIn() {
                 this.$.auth.signInWithPopup();
+            }
+            signOut() {
+                this.$.auth.signOut();
             }
             _routePageChanged(page) {
                 // Polymer 2.0 will call with `undefined` on initialization.
