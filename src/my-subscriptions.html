@@ -1,21 +1,33 @@
 <!-- Load the Polymer.Element base class -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="shared-styles.html">
 
 
 <dom-module id="my-subscriptions">
     <!-- Defines the element's style and local DOM -->
     <template>
-        <style>
+        <style include="shared-styles">
              :host {
                 display: block;
 
-                padding: 16px;
+                padding: 10px;
             }
         </style>
 
-        <h1>New view</h1>
-        <paper-checkbox>Ready to deploy!</paper-checkbox>
+        <style include="note-app-shared-styles"></style>
+
+        <firebase-auth id="auth" app-name="trebio" provider="google" signed-in="{{signedIn}}" user="{{user}}">
+        </firebase-auth>
+
+        <firebase-query id="query" app-name="trebio" path="/subscriptions/[[user.uid]]" data="{{subscriptions}}">
+        </firebase-query>
+        <div class="notes">
+            <template is="dom-repeat" items="[[subscriptions]]" as="subscription">
+                <div class="card">
+                    <h1>[[subscription.title]]</h1>
+                </div>
+            </template>
+        </div>
     </template>
     <script>
         class MySubscriptions extends Polymer.Element {

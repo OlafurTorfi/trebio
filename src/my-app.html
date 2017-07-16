@@ -32,8 +32,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="my-app">
     <template>
-        <firebase-auth id="auth" app-name="trebio" provider="google" signed-in="{{signedIn}}" user="{{user}}">
-        </firebase-auth>
         <style>
              :host {
                 --app-primary-color: #4285f4;
@@ -74,7 +72,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="[[rootPattern]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
-
+        <firebase-auth id="auth" app-name="trebio" provider="google" signed-in="{{signedIn}}" user="{{user}}">
+        </firebase-auth>
         <app-drawer-layout fullbleed>
             <!-- Drawer content -->
             <app-drawer id="drawer" slot="drawer">
@@ -94,12 +93,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <app-toolbar>
                         <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
                         <div main-title>Trebio</div>
-
+                        <paper-button on-tap="handletesttap">Testfunction</paper-button>
                         <paper-button on-tap="signIn" hidden=[[signedIn]]>Log In</paper-button>
                         <paper-button on-tap="signOut" hidden=[[!signedIn]]>Log Out</paper-button>
                     </app-toolbar>
                 </app-header>
-
                 <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
                     <my-player name="player"></my-player>
                     <my-podcasts name="podcasts"></my-podcasts>
@@ -149,8 +147,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
                 this.rootPattern = (new URL(this.rootPath)).pathname;
             }
+            handletesttap() {
+                console.log('testtap clicked');
+                console.log('user', this.user)
+
+            }
+
             signIn() {
-                this.$.auth.signInWithPopup();
+                this.$.auth.signInWithPopup()
+                    .then(() => {
+                        this.page = 'podcasts';
+                    });
             }
             signOut() {
                 this.$.auth.signOut();

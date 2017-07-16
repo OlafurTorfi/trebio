@@ -9,29 +9,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-podcasts">
   <template>
+    <firebase-auth id="auth" app-name="trebio" provider="google" signed-in="{{signedIn}}" user="{{user}}">
+    </firebase-auth>
+    <firebase-query id="query" app-name="trebio" path="/podcasts" data="{{podcasts}}">
+    </firebase-query>
+    <firebase-document path="/users/{{userId}}/notes/{{noteId}}" data="{{noteData}}">
+    </firebase-document>
     <style include="shared-styles">
-      :host {
+       :host {
         display: block;
-
         padding: 10px;
+      }
+
+      .float-right {
+        float: right;
       }
     </style>
 
-    <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
+    <template is="dom-repeat" items="[[podcasts]]" as="podcast">
+      <div class="card">
+        <paper-icon-button icon="arrow-drop-down" class="circle float-right" on-tap="togglePodcastShow" hidden="[[podcast.show]]"></paper-icon-button>
+        <paper-icon-button icon="arrow-drop-up" class="circle float-right" on-tap="togglePodcastShow" hidden="[[!podcast.show]]"></paper-icon-button>
+        <h1>[[podcast.name]]</h1>
+      </div>
+    </template>
   </template>
 
   <script>
     class MyPodcasts extends Polymer.Element {
-      static get is() { return 'my-podcasts'; }
+      static get is() {
+        return 'my-podcasts';
+      }
+      static get properties() {
+        return {
+          data: {
+            type: Object,
+            observer: 'dataChanged'
+          }
+        }
+      }
+
+      static get podcastsPath() {
+        return '/podcasts/'
+      }
+      togglePodcastShow(e) {
+        console.log(e);
+        // console.log(e.model.item)
+        // e.model.item.show = !e.model.item.show
+      }
+      dataChanged(newData, oldData) {
+        console.log('newData', newData);
+        console.log('oldData', oldData);
+      }
     }
 
     window.customElements.define(MyPodcasts.is, MyPodcasts);
